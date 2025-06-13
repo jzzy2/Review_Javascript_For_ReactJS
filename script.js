@@ -200,9 +200,8 @@ console.log(primaryGenre_Des_Spread, secondaryGenre_Des_Spread, othersGenres);
 //NOTE: this is the example without using the spread operator
 const newGenres = [genres, "epic fantasy"];
 newGenres;
-
 /*
- REVIEW: Notice na wala na yong nested array natin dahil si spread operator ang ginawwa neto is tinatangal nya
+ NOTE: Notice na wala na yong nested array natin dahil si spread operator ang ginawwa neto is tinatangal nya
  yong value natin sa loob ng array natin.
  */
 //NOTE: this is the Example using the spread Operator
@@ -236,3 +235,14 @@ UpdatedBook;
  */
 UpdatedBook.author = "John Carlo Espina";
 UpdatedBook;
+
+//REVIEW: Template Literals
+const EveryGenreBook = `this is every book in the ${books.genres} genre`;
+/* IDEA: what is template literals? 
+        template literals is a modern style of concatination kung saan powede ka mag lagay ng code sa loob ng ${}
+        powede ka gumawa ng ternary expression sa loob ng template literals at powede kadin  mag display ng value 
+        gamit  na mang gagaling sa object  basta tatandaan ninyo na this ternary is  is very powerful.
+        kasi madami kapang powede gawin jan bukod sa idea na naka sulat dito!
+     */
+// NOTE: this will display every genree that available in books
+EveryGenreBook;
