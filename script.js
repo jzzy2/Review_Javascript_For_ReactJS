@@ -272,3 +272,64 @@ console.log(getFee(null));
 const pageRange = pages > 1000 ? "Over a thousand" : "Less than 1000";
 // so here this is the  another example   the result of this console.log will determine based on how many pages nung books natin!
 console.log(`the book have ${pageRange}`);
+
+// REVIEW: short-Circutting and Logical Operators && || ??
+/*
+    NOTE:  sa short circuting  powede natin sila gamitin inaway na way na parang conditional statemang lang din
+    for example sa &&  AND natin kugn gusto natin gumawa ng dalwang multiple condition then powede nati ngamitin yong &&
+    pero kung gusto natin may optional lang yong sagot like poweding 1 or 2 gagamit tayo ng OR ||.
+     !- pero ang problema kasi kay ||  meron tayong tina tawag na falsy and truty so 
+       pag ang goal natin is kahit 0  yong sagot natin i coconsider sya ni or as flasy value 
+       so dapat mo lang tandaan na alm mo lang yong mga flasy value  kay OR || for example  empty string '' , 0 undfined null
+       yan yong mga tinatwag na falsy value  na i coconsider agad na mali ni OR || kaya may na entroduced si ja
+   } */
+
+//NOTE: EXAMPLE CODE for &&
+console.log(true && false); //->  false
+console.log(true && "Some String"); // -> Some String  NOTE: once na nag true yong condition natin laging i rereturn  sa AND operator is yong last value ntin kaya some string ni return dito
+console.log(false && "Some String"); // -> this is false because dapat parehas silang truety
+console.log(hasMovieAdaptation && "This book has a movie"); // -> return  this book has a movie -> since yong pasok sa condition natin na yong hasMovieADaptation is True don sa object nya
+// ! REMEMBER the way na nag wowork is && operator is  dapat parehas na True yong bawat condition nya.
+
+// EXAMPLE FOR OR ||
+console.log(true || "Some thing"); // -> TRUE NOTE: kaya sya true kasi si or as soon as na  hindi True yong unang condition or yong optional nya is i  rereturn nya na yon
+console.log(false || "this is tring"); // ->NOTE: as you can see kahit na may false tayo sa condition nya basta may true tayo yon yung i rereturn nya
+console.log(false || false); // ->  FALSE NOTE:  since walang true sa or natin ang output natin is false!
+// example object
+
+console.log(books.translations.spanish); // this will display  spanish  if not this will be undefined but
+console.log(books.translations.tagalog || "No  Translation"); // -> the output will be NO TRANSLATION!
+/* 
+  ! Remember kahit na ganu kadami yong false donsa mismong OR natin sa condition as long as may mag TRue jan i rereturn nya na agad yong TRUE VALUE NA YON
+  NOTE: unlike kay and na a as soon as may nakita syang false i rereturn na agad nya yong false value na yon.
+
+   so again pag yong value na unang niyang checneck sa OR operator is false chcheck nya yong second pag true namn na yon na yong irereturn nya
+   at hindi na nya i chcheck kung yong sunod na value is true!
+   ! REMEMBER AGAIN THE || or value is very sensitive
+    what do you mean sensitive?   any value na pasok sa falsy  value natin like -> '', 0 , undefined , null 
+    i coconsider ni OR || na false ,  which is delicado kung may data tayo na ang value is 0 talga so i rereturn nya yon 
+    as a falsesy value!
+ */
+// for example
+console.log(books.reviews.librarything); // this will return the value of reviews
+// NOTE: you have to change the ID to see the output of this example
+const countWrong = books.reviews.librarything.reviewsCount || "No data";
+countWrong; // if you are using the ID - 2 answer is 452 but using the ID - 1 Ang i rereturn nya is 'no data'\ kahit na may value na 0
+// Why? it's because si 0 nakikita nya yon as falsy value kaya hindi nya ni rereturn yong value na 0 kaya no data yong ibibgay nya
+
+// NOTE: kaya binuo ni javascript community and tinatwag na ??
+
+// IDEA: What is the best solution here ??
+// NOTE: the Best solution is by using the  use the nullish coalescing operator
+/*
+       so lahat  lahat ng falsy value execept sa undefined i ignore nya
+       that the power for example sa countWrong natin pag yong data natin don is 0 hindi nya i rereturn yong no data
+       but still i rereturn nya yong value na 0 dahil i coconsider nya yong as truethy value
+       kahit empty string  or 0 basta hindi undefined and null
+*/
+//     NOTE: tatandaan mo na it works similary katuald ng OR operator ang pinag kaiba lang is yong
+const count = books.reviews.librarything.ratingsCount ?? "no data";
+count; // in id 2 output will be : 47166 , But in ID 1 the output will be  0;
+/*
+!
+ */
