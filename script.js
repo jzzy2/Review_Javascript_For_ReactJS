@@ -238,6 +238,7 @@ UpdatedBook;
 
 //REVIEW: Template Literals
 const EveryGenreBook = `this is every book in the ${books.genres} genre`;
+const summary = `${title}, a ${pages}-page long book, was  written by ${author} and published in ${publicationDate}`;
 /* IDEA: what is template literals? 
         template literals is a modern style of concatination kung saan powede ka mag lagay ng code sa loob ng ${}
         powede ka gumawa ng ternary expression sa loob ng template literals at powede kadin  mag display ng value 
@@ -246,3 +247,28 @@ const EveryGenreBook = `this is every book in the ${books.genres} genre`;
      */
 // NOTE: this will display every genree that available in books
 EveryGenreBook;
+summary; // NOTE: this will display the summary of the book
+
+//REVIEW: Ternaries instead  of if else Literals
+/*
+        IDEA: why we should use the Ternaries  operator instead of if else?
+               because may mga scenario na we cannt use the if else code thats why we have to know how to use and when to use 
+               the ternary operator.
+*/
+//Basic Example
+function getFee(isMember) {
+    return isMember ? "$2.00" : "$10.00";
+}
+console.log(getFee(true));
+// Expected output: "$2.00"
+
+console.log(getFee(false));
+// Expected output: "$10.00"
+
+console.log(getFee(null));
+// Expected output: "$10.00"
+
+//NOTE: another example
+const pageRange = pages > 1000 ? "Over a thousand" : "Less than 1000";
+// so here this is the  another example   the result of this console.log will determine based on how many pages nung books natin!
+console.log(`the book have ${pageRange}`);
