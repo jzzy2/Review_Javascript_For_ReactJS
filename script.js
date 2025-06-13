@@ -132,6 +132,8 @@ function getBook(id) {
 
 const books = getBook(1);
 
+const book = getBook(3);
+
 /*  
   QUOKKA extention tool -> this allow us to see data object value without using console.log
  with a help of exteion quokka  hindi nnatin kaylangan pa mag console.log para lang ma displa y yong output sa mismong 
@@ -331,5 +333,57 @@ countWrong; // if you are using the ID - 2 answer is 452 but using the ID - 1 An
 const count = books.reviews.librarything.ratingsCount ?? "no data";
 count; // in id 2 output will be : 47166 , But in ID 1 the output will be  0;
 /*
-!
+! Just Remember ang tangin i coocnsider nya lang isa yong  empty string '' or 0  not null or undefined
  */
+
+// NOTE: REVIEW optional chaining
+
+function getTotalReviewCount(book) {
+    const goodread = books.reviews.goodreads.reviewsCount;
+    /*
+        if our ratingCount is null it will return NaN , but since weare yong nullish coalescing operator 
+         yong magiging value nya is 0  so ang rereturn  na nya yong tamamang computation!
+     */
+    const librarything = book.reviews.librarything?.ratingsCount ?? 0; // since we dont have any library rating in our id 3 this will become undefined
+
+    return goodread + librarything; // so magiging value dito is NaN , but since we are using the nullish coalescing operator this value wil become 0
+    // kaya  ni return yonng zero sa mata ni nullish coalishing  yong 0 is truety value!
+}
+
+// this is the example of OPTUIONAL CHANING
+console.log(getTotalReviewCount(book)); //->  the output 60583;
+const adventurer = {
+    name: "Alice",
+    cat: {
+        name: "Dinah",
+    },
+};
+
+const dogName = adventurer.dog?.name;
+console.log(dogName);
+// Expected output: undefined
+// if the output is undefied since we don't have a dogName
+
+// undefined since in adventure we dont have existing method
+console.log(adventurer.someNonExistentMethod?.());
+// Expected output: undefined
+
+/*
+  IDEA: how is this work?
+    NOTE: the purpose of this code is to avoid an error don sa code natin if you know that there still possible to check some value 
+    don sa mismong object natin we can use this optional chaning para maiwasan natin masira yong code based natin 
+    katulad sa example natin sa dogName as soon as na walang dogName sa object antin 
+    yong dogName natin will transform into undefined so yong value na is undefined
+    no if we have a guard clause that check if the value is undefined that code will execute since hind pasok don sa condition natin
+
+    so REMEMBER ang purpose ng code nato is to avoid crash or returning unncessary error satin
+ */
+
+//REVIEW: Another Example
+function printMagicIndex(arr) {
+    console.log(arr?.[42]);
+}
+printMagicIndex([0, 1, 2, 3, 4, 5]); // undefined
+printMagicIndex(); // undefined; if not using ?., this would throw an error: "Cannot read properties of undefined (reading '42')"
+
+console.log(adventurer?.name); // This will return ALICE since may value yong  adventure name natin
