@@ -130,7 +130,7 @@ function getBook(id) {
     return data.find((d) => d.id === id);
 }
 
-const books = getBook(2);
+const books = getBook(1);
 
 /*  
   QUOKKA extention tool -> this allow us to see data object value without using console.log
@@ -210,3 +210,29 @@ const newGenres_SpreadOperator = ["epic fantasy", ...genres];
 newGenres_SpreadOperator;
 
 //IDEA: Using the Spread Operator In Object
+/*
+  NOTE:
+    so using the spread operator we able to create a new copy  of the current books and able to add new keys and value from it
+    which is moviePublicationDate  //!Remember yong ...books is newly copy so hindi ma aapektuhan yong mismong orginal one kung mag decided  tayo na bahuin yong value ng books here
+  */
+
+books; // NOTE this is the original books value
+
+const UpdatedBook = {
+    ...books,
+    // NOTE: -> adding new Properties
+    moviePublicationDate: "2001-12-19",
+    //NOTE: -> OverWriting existing properties
+    pages: 1,
+};
+UpdatedBook;
+
+//IDEA: Here The example notice that hindi aapektuhan yong original copy ng book natin dahil ginamit natin ang spread operator para makagawa ng bagong refererence id
+// ma allow natin ma manipulate yong value ng updated book without  affecting the original one so
+
+/*
+ NOTE: so how we can use the spread operator to merge two objects together
+ NOTE: we can also overWrite the value of the original book keys without effecting the original one so example natin jan ginawa natin page  1 nalang yong page
+ */
+UpdatedBook.author = "John Carlo Espina";
+UpdatedBook;
