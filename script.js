@@ -164,8 +164,49 @@ console.log(primaryGenre, secondaryGenre);
 
  */
 const [primaryGenre_Des, secondaryGenre_Des] = genres;
+
 // another example
 const arr = [1, 2, 3];
 const [a, b] = arr;
 // a = 1, b = 2, c = 3
 console.log(a, b); // you can aslo do this just get the data of 2 index array
+
+//REVIEW: The Rest and Spread Operator
+/*
+  if we want to create a copy or get all the value of object or array we can use the 
+  spread operator  
+ */
+// Example of Rest Pattern
+const [primaryGenre_Des_Spread, secondaryGenre_Des_Spread, ...othersGenres] = genres;
+/*
+  IDEA: notice what happend as soon as we use the rest  operator and then we console.log
+  yong value na nilagay natin ng Spread  it has  [] own array sa loob ng array natin 
+  the reason why it has its own array is because we use the rest operator basically ang ginagwa kasi nong rest pattern
+  gumagawa sya ng panibagong copy nung value na yon without effecting the original array natin.
+
+  !REMEMBER -> We can only place our rest pattern to the last so hindi sya powede sa git or sa unahan lagi syang last!
+ */
+console.log(primaryGenre_Des_Spread, secondaryGenre_Des_Spread, othersGenres);
+
+/*
+  NOTE: you can actually add another value to the existing array by doign this example code below
+  but the problem is that it create a nested array in our example code!
+
+
+  IDEA: so how we can fix that? 
+          by using the spread Operator   tatandaan na yong SPREAD OPERATOR IS LEFT ... side while the REST PATTERN is RIGHT is right side
+
+ */
+//NOTE: this is the example without using the spread operator
+const newGenres = [genres, "epic fantasy"];
+newGenres;
+
+/*
+ REVIEW: Notice na wala na yong nested array natin dahil si spread operator ang ginawwa neto is tinatangal nya
+ yong value natin sa loob ng array natin.
+ */
+//NOTE: this is the Example using the spread Operator
+const newGenres_SpreadOperator = ["epic fantasy", ...genres];
+newGenres_SpreadOperator;
+
+//IDEA: Using the Spread Operator In Object
