@@ -387,3 +387,138 @@ printMagicIndex([0, 1, 2, 3, 4, 5]); // undefined
 printMagicIndex(); // undefined; if not using ?., this would throw an error: "Cannot read properties of undefined (reading '42')"
 
 console.log(adventurer?.name); // This will return ALICE since may value yong  adventure name natin
+
+// REVIEW: THE ARRAY METHODS
+// IDEA: ARRAY METHOD MAP
+
+/*
+      NOTE: One thing na dapat mo ma laman about this MAP method is nag rereturn sya ng New array based don sa pinag iterate natin
+      so mahalga ito malaman kasi isa to sa mga magagandang way para mamipulate mo yong data ng hindi na gagalaw yong original. 
+      
+      IDEA: how does map works? 
+            mag loloop sya then lahat ng value na nasa loob non based don sa logic mo isa ma gagalaw and then mag rereturn sya
+            ng new array, so sa way na to we will able to manipulate the data ng hindi na gagalaw yong pinaka original
+     */
+// NOTE: EXAMPLE
+const Arraybooks = getBooks();
+const newBooks = Arraybooks.map((el) => {
+    return el;
+});
+
+//NOTE: this  will be a new copy of our getBooks and we can now manipulate this data without effecting the entier
+//Orginal Arraybooks
+newBooks;
+
+// NOTE: another Example
+const x = [1, 2, 3, 4, 5].map((el) => el * 2);
+console.log(x); //NOTE: [2,4,6, 8 , 10]
+
+// Another Example using our example object
+const bookTitles = Arraybooks.map((book) => book.title);
+bookTitles; // NOTE: this will return every book of title in our  object
+//
+const esssentialData = Arraybooks.map((book) => ({
+    title: book.title,
+    author: book.author,
+    reviewsCount: getTotalReviewCount(book),
+}));
+esssentialData; // this will return the essential data based don sa sinulata mo  sa loob ng data
+
+// IDEA: The FILTER METHOD
+/*
+      NOTE: what is a filter method? so basically filter method is a method na nakabased sa condition mo at kung ano yong logic mo don at
+      yong value na yon is true yon lang yong i store nya  so sa madaling salita ang istore na value nya lang don sa mismong value na yon 
+      is yong TRUE value so panu namn false yong value so hindi nya i sasama yon kaya sya tinawag na filter Method
+     */
+const longBooks = Arraybooks.filter((el) => el.pages < 500).filter((el) => el.hasMovieAdaptation);
+longBooks; // NOTE: here the example this will  store the only object that less than 500 pages  so its id 2 and 4 , and remember again this will store in a new array!
+// so sa madaling salita na filter out natin yong mga  object na hindi pasok sa conditions natin.
+// NOTE:  since we use anotherr filter to the existing on and then we check if hasMovvie adatation yong nag iisang page less than 500 lang ang merong  moving adaptation
+
+// Combining the Map and filter
+
+const adventures = Arraybooks.filter((books) => books.genres.includes("adventure")).map((book) => book.title);
+adventures; //NOTE: this will only return the books that have genres  na may adventure and then using the map we can iterate and return the title of the books
+
+//IDEA: REDUCE METHOD
+/*
+      NOTE: if I remember reduce is one of the most powerful and  this code is design lagi sa dulo ang  ginagawa neto 
+      you can perform math here to calclulate evqery page of the book and return the value only and then by using join you can 
+      convert it into string 
+
+      IDEA: why is called reduce value? 
+                    NOTE: because the idea is to reduce the value into 1 value 
+     */
+
+const pagesAllBooks = Arraybooks.reduce((AcomulatorB, book) => AcomulatorB + book.pages, 0);
+pagesAllBooks; // NOTE: the value will return is the 3227
+
+/*
+     NOTE: another Example
+ */
+const array1 = [1, 2, 3, 4];
+
+// 0 + 1 + 2 + 3 + 4
+const initialValue = 1;
+const sumWithInitial = array1.reduce((accumulator, currentValue) => accumulator + currentValue, initialValue);
+
+console.log(sumWithInitial);
+// Expected output: 11
+/*
+  NOTE:  How Reduce  works?
+  why its 11? dahil yong iniital value ng accumator natin nag start sa 1 at then we add 1 + 2 + 3 + 4 so 11
+   so sa madalling salita yong accumalator nakabased don sa inital value natin usually pag mag add ka dapat 0 yan
+   how this work?   1 + 0 = 1 ,  1 + 1 = 2 , 2 + 2 = 4,  4 + 3  = 7 , 7 + 4 = 11
+   ganyan sya gumana yong 1 + 0 natin yong 1 don is si accumalator while yong 0 natin yong current value natin yon , then yong initial namn
+   hindi nman mandatory na ilgay sa variable powede direct number 0 na jan mag babase yong value ni accumalator natin or yong starting value nya
+ */
+
+// REVIEW: LEARN SORT
+
+const arrSort = [3, 7, 1, 9, 6];
+const sorted = arrSort.sort((a, b) => a - b); // this will sort the value if we use - , if we use + this will  rever so  bigger to lower
+sorted;
+// if we switch ihe  a - b into b - a  the orignal array will get sorted too
+arrSort; // if b - a = [9,7,6,3,1] yong magiging kalabasan.
+//NOTE: why?? // !REMEMBER unlike the map filter methods yong sort natin is not actually a function method!
+/*
+  so yong sort natin is actually  a method that mutates the original arrSort 
+  so we dont need to store it in different  variable. 
+
+  but usually sa real world scenario we dont want to touch the original array 
+  lalo na pag dating sa react isa kasi sa dapat mong malaman na si react is functional programming 
+  approach sya kaya mutating the original value is not allowed!
+ */
+// anoth Example
+
+const sortedByPages = Arraybooks.slice().sort((a, b) => b.pages - a.pages);
+sortedByPages;
+// another example her
+
+//REVIEW working With Immutable arrays
+/*
+        IDEA: SO here we will learn how to manipulate the array without mutating the original arrays
+ */
+
+const newBookHarryPotter = {
+    id: 6,
+    title: "Harry potter and the Chamber of Secrets",
+    author: "J. K. Rowling",
+};
+
+//NOTE: so here we create another book  and then we add it  to our array object books
+const bookAfterAdding = [...Arraybooks, newBookHarryPotter];
+// 2) delete the book object from array
+
+//NOTE: so here we able to delete the book without affecting the original one only we manipulate the copy
+const bookAfterDelete = bookAfterAdding.filter((book) => book.id !== 3);
+bookAfterDelete;
+
+// update the book object in the array map is the best choice if we want to update the value inside the array
+const bookAfterUpdate = bookAfterDelete.map((book) => (book.id === 1 ? {} : book));
+bookAfterUpdate; // NOTE: here  imagine this how to update the value inside of it assume that we want to update the object book 1
+// so since may id tayo na 1 this will update the book and return new array object na ang laman na ng id: 1 natin is empty object
+// so again we manipualte or update the value of data without effecting the original, //! Remember mo lang na if you want to update or add something always use the MAP
+
+const bookAfterUpdate_2 = bookAfterDelete.map((book) => (book.id === 1 ? { ...book, page: 1200 } : book));
+bookAfterUpdate_2;
